@@ -5,6 +5,15 @@ import "izitoast/dist/css/iziToast.min.css";
 
 
 const searchFormEl = document.querySelector('.js-search-form');
+const galleryEl = document.querySelector('.js-gallery');
+
+const createGalleryCardTemplate = (imgInfo) =>{
+    return`
+    <li class="gallery-card">
+    <img class="galler-card" src="${imgInfo.webformatURL}" alt="${imgInfo.tags}" />
+    </li>
+    `;
+};
 
 const onSearchFormSubmit = event => {
     event.preventDefault();
@@ -21,9 +30,16 @@ const onSearchFormSubmit = event => {
         })
         .then(data =>{
             console.log(data);
+          
+            const galleryCardTemplate = data.hits.map(img => createGalleryCardTemplate(img)).join('');
+            galleryEl.innerHTML = galleryCardTemplate;
         })
         .catch(err =>{
             console.log(err);
+            iziToast.error({
+                title: 'Error',
+                message: 'Sorry, there are no images matching your search query. Please try again!',
+            });
         });
 };
 
