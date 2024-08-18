@@ -5,12 +5,26 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vanilla App Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
     
     <script type="module" crossorigin src="/vanilla-app-template/commonHelpers.js"></script>
-    <link rel="stylesheet" href="/vanilla-app-template/assets/index-10c40100.css">
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-86291ea8.js">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/vendor-e5212ee8.css">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/index-b39111ac.css">
   </head>
   <body>
-   
+   <form class="search-form js-search-form">
+    <input class="search-input js-search-form" name="user_query" type="text" placeholder="Search images..." required>
+    <button class="search-button js-search-form" type="submit">Search</button>
+  </form>
+  <ul class="gallery js-gallery"></ul>
+
+  
+
     
+   
   </body>
 </html>
