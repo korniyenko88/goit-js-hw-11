@@ -1,4 +1,3 @@
-
 // Описаний у документації
 import iziToast from 'izitoast';
 // Додатковий імпорт стилів
@@ -8,18 +7,16 @@ import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { createGalleryCardTemplate } from './render-functions'
+import { createGalleryCardTemplate } from './render-functions';
 
 const searchFormEl = document.querySelector('.js-search-form');
 const galleryEl = document.querySelector('.js-gallery');
-
-
 
 const onSearchFormSubmit = event => {
   event.preventDefault();
   const searchedValue = searchFormEl.elements.user_query.value;
   const loader = document.querySelector('.loader');
-  
+
   loader.style.display = 'inline-block';
 
   fetch(
@@ -31,10 +28,10 @@ const onSearchFormSubmit = event => {
       }
       return response.json();
     })
-    
+
     .then(data => {
       if (data.hits.length === 0) {
-        throw new Error("No images found.");
+        throw new Error('No images found.');
       }
       console.log(data);
 
@@ -50,7 +47,6 @@ const onSearchFormSubmit = event => {
       });
       lightbox.refresh();
       searchFormEl.reset();
-      
     })
     .catch(err => {
       console.log(err);
@@ -67,6 +63,3 @@ const onSearchFormSubmit = event => {
 };
 
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
-
-
-
