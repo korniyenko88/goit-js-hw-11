@@ -24,7 +24,7 @@ const onSearchFormSubmit = event => {
       if (data.hits.length === 0) {
         throw new Error('No images found.');
       }
-      console.log(data);
+      
 
       const galleryCardTemplate = data.hits
         .map(img => createGalleryCardTemplate(img))
