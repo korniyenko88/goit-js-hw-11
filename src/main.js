@@ -20,10 +20,16 @@ const onSearchFormSubmit = event => {
   loader.style.display = 'inline-block';
 
   fetchFotos(searchedValue)
-    .then(data => {
-      if (data.hits.length === 0) {
-        throw new Error('No images found.');
-      }
+  .then(data => {
+    if (data.hits.length === 0) {
+      
+      iziToast.warning({
+        title: 'Warning',
+        position: 'topRight',
+        message: 'No images found. Please try a different search query.',
+      });
+      return;
+    }
       
 
       const galleryCardTemplate = data.hits
