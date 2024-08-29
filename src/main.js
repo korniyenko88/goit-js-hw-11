@@ -12,36 +12,46 @@ import { fetchFotos } from './js/pixabay-api';
 const searchFormEl = document.querySelector('.js-search-form');
 const galleryEl = document.querySelector('.js-gallery');
 
-const onSearchFormSubmit = event => {
-  event.preventDefault();
-  const searchedValue = searchFormEl.elements.user_query.value;
-  const loader = document.querySelector('.loader');
+
+
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
+
+  const onSearchFormSubmit = event => {
+    event.preventDefault();
+    const searchedValue = searchFormEl.elements.user_query.value.trim();
+
+    if (searchedValue === "") {
+      iziToast.warning({
+        title: 'Warning',
+        position: 'topRight',
+        message: 'Please enter a search query.',
+      });
+      return;
+    }
+    const loader = document.querySelector('.loader');
 
   loader.style.display = 'inline-block';
 
   fetchFotos(searchedValue)
-  .then(data => {
-    if (data.hits.length === 0) {
-      
-      iziToast.warning({
-        title: 'Warning',
-        position: 'topRight',
-        message: 'No images found. Please try a different search query.',
-      });
-      return;
-    }
-      
+    .then(data => {
+      if (data.hits.length === 0) {
+        iziToast.warning({
+          title: 'Warning',
+          position: 'topRight',
+          message: 'No images found. Please try a different search query.',
+        });
+        return;
+      }
 
       const galleryCardTemplate = data.hits
         .map(img => createGalleryCardTemplate(img))
         .join('');
       galleryEl.innerHTML = galleryCardTemplate;
 
-      const lightbox = new SimpleLightbox('.gallery a', {
-        captions: true,
-        captionsData: 'alt',
-        captionDelay: 250,
-      });
       lightbox.refresh();
       searchFormEl.reset();
     })
@@ -50,8 +60,7 @@ const onSearchFormSubmit = event => {
       iziToast.error({
         title: 'Error',
         position: 'topRight',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
+        message: 'An error occurred while uploading images. Please try again.!',
       });
     })
     .finally(() => {
